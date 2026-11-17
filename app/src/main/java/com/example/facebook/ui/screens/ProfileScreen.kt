@@ -1,5 +1,6 @@
 package com.example.facebook.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -26,9 +27,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.facebook.R
 import com.example.facebook.ui.theme.FacebookPlaceholder
 import com.example.facebook.ui.theme.FacebookSurface
 import com.example.facebook.ui.theme.FacebookTextSecondary
@@ -36,6 +40,8 @@ import com.example.facebook.ui.theme.FacebookTheme
 
 @Composable
 fun ProfileScreen(modifier: Modifier = Modifier) {
+    val image = painterResource(R.drawable.marcottt)
+    val imagen = painterResource(R.drawable.familiattt)
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -65,10 +71,10 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                             .background(FacebookPlaceholder),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(
-                            text = "Foto de portada",
-                            color = FacebookTextSecondary,
-                            style = MaterialTheme.typography.bodyMedium
+                        Image(
+                            painter = imagen,
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop
                         )
                     }
 
@@ -82,23 +88,25 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                             .border(4.dp, FacebookSurface, CircleShape),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(
-                            text = "Perfil",
-                            color = FacebookTextSecondary,
-                            style = MaterialTheme.typography.bodySmall
+                        Image(
+                            painter = image,
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop
+
                         )
+
                     }
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Nombre del Usuario",
+                    text = "Marco Avila Sahur",
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "Descripción corta o biografía...",
+                    text = "Integrante de fusion andina y pasante de Inti",
                     style = MaterialTheme.typography.bodyMedium,
                     color = FacebookTextSecondary
                 )
@@ -133,9 +141,9 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
             ProfileDataSectionCard(
                 title = "Información de contacto",
                 items = listOf(
-                    "Correo electrónico" to "usuario@ejemplo.com",
-                    "Teléfono" to "+00 000 000 0000",
-                    "Dirección / Ciudad" to "Ciudad, País"
+                    "Correo electrónico" to "qmcfarmaceutica@gmail.com",
+                    "Teléfono" to "+6767 73522437",
+                    "Dirección / Ciudad" to "Palca - Bolivia"
                 )
             )
         }
@@ -145,9 +153,9 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
             ProfileDataSectionCard(
                 title = "Pasatiempos",
                 items = listOf(
-                    "Deportes" to "Fútbol, Ciclismo",
-                    "Entretenimiento" to "Música, Videojuegos, Lectura",
-                    "Otros intereses" to "Fotografía, Viajes"
+                    "Deportes" to "Tocar la Guitarra",
+                    "Entretenimiento" to "Viedeojuegos y Brainrot",
+                    "Otros intereses" to "Viajes a Peru"
                 )
             )
         }
@@ -157,10 +165,10 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
             ProfileDataSectionCard(
                 title = "Datos personales",
                 items = listOf(
-                    "Fecha de nacimiento" to "01 de enero de 2000",
+                    "Fecha de nacimiento" to "67 de enero de 2067",
                     "Situación sentimental" to "Soltero/a",
-                    "Formación académica" to "Universidad / Institución",
-                    "Lugar de origen" to "Ciudad natal"
+                    "Formación académica" to "UPEA",
+                    "Lugar de origen" to "PeruKistan"
                 )
             )
         }
