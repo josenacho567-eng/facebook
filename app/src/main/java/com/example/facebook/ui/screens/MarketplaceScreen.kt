@@ -1,5 +1,7 @@
 package com.example.facebook.ui.screens
 
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -29,17 +32,97 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.facebook.R
 import com.example.facebook.ui.theme.FacebookPlaceholder
 import com.example.facebook.ui.theme.FacebookSurface
 import com.example.facebook.ui.theme.FacebookTextSecondary
 import com.example.facebook.ui.theme.FacebookTheme
 
+/**
+ * Modelo de datos para representar individualmente cada producto en Marketplace.
+ * Puedes personalizar el título, precio, ubicación e imagen (R.drawable) para cada uno.
+ */
+data class MarketplaceProduct(
+    val id: Int,
+    val title: String,
+    val price: String,
+    val location: String,
+    @DrawableRes val imageRes: Int? = null,
+    val placeholderText: String = "Foto $id"
+)
+
+/**
+ * Lista de productos individuales.
+ * Modifica o agrega elementos aquí para cambiar el texto o la imagen de cada producto por separado.
+ */
+val sampleMarketplaceProducts = listOf(
+    MarketplaceProduct(
+        id = 1,
+        title = "Guitarra Gibson E-355",
+        price = "280Bs",
+        location = "La Paz, Bolivia",
+        imageRes = R.drawable.product1
+    ),
+    MarketplaceProduct(
+        id = 2,
+        title = "Disfraz Tung Tung 67",
+        price = "670Bs",
+        location = "La Paz, Bolivia",
+        imageRes = R.drawable.product2
+    ),
+    MarketplaceProduct(
+        id = 3,
+        title = "Juegos Ps4",
+        price = "100Bs",
+        location = "La Paz, Bolivia",
+        imageRes = R.drawable.product3
+    ),
+    MarketplaceProduct(
+        id = 4,
+        title = "Chaquta de cuero",
+        price = "280Bs",
+        location = "La Paz, Bolivia",
+        imageRes = R.drawable.product4
+    ),
+    MarketplaceProduct(
+        id = 5,
+        title = "Alvin",
+        price = "0.50Bs",
+        location = "Tropico, Bolivia",
+        imageRes = R.drawable.product5
+    ),
+    MarketplaceProduct(
+        id = 6,
+        title = "Espada Sagrada Legion Ultimate Definitiva",
+        price = "300Bs",
+        location = "Santa Cruz, Bolivia",
+        imageRes = R.drawable.product6
+    )
+)
+
 @Composable
-fun MarketplaceScreen(modifier: Modifier = Modifier) {
+fun MarketplaceScreen(
+    modifier: Modifier = Modifier,
+    products: List<MarketplaceProduct> = sampleMarketplaceProducts
+) {
     var searchQuery by remember { mutableStateOf("") }
+
+    val filteredProducts = remember(searchQuery, products) {
+        if (searchQuery.isBlank()) {
+            products
+        } else {
+            products.filter { product ->
+                product.title.contains(searchQuery, ignoreCase = true) ||
+                product.location.contains(searchQuery, ignoreCase = true) ||
+                product.price.contains(searchQuery, ignoreCase = true)
+            }
+        }
+    }
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -100,17 +183,23 @@ fun MarketplaceScreen(modifier: Modifier = Modifier) {
             }
         }
 
-        // Publicaciones de Marketplace
-        items(6) { index ->
-            MarketplaceItemCard(index = index + 1)
+        // Publicaciones individuales de Marketplace
+        items(
+            items = filteredProducts,
+            key = { it.id }
+        ) { product ->
+            MarketplaceItemCard(product = product)
         }
     }
 }
 
 @Composable
-private fun MarketplaceItemCard(index: Int) {
+private fun MarketplaceItemCard(
+    product: MarketplaceProduct,
+    modifier: Modifier = Modifier
+) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(containerColor = FacebookSurface),
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
@@ -124,24 +213,33 @@ private fun MarketplaceItemCard(index: Int) {
                     .background(FacebookPlaceholder),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = "Foto $index",
-                    color = FacebookTextSecondary,
-                    style = MaterialTheme.typography.bodySmall
-                )
+                if (product.imageRes != null) {
+                    Image(
+                        painter = painterResource(id = product.imageRes),
+                        contentDescription = product.title,
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop
+                    )
+                } else {
+                    Text(
+                        text = product.placeholderText,
+                        color = FacebookTextSecondary,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
             }
             Column(modifier = Modifier.padding(8.dp)) {
                 Text(
-                    text = "$${index * 100}",
+                    text = product.price,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "Artículo en venta $index",
+                    text = product.title,
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Text(
-                    text = "Ciudad, País",
+                    text = product.location,
                     style = MaterialTheme.typography.bodySmall,
                     color = FacebookTextSecondary
                 )
