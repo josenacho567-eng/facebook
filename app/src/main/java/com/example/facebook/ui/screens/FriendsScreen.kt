@@ -54,7 +54,8 @@ private data class Persona(
 // Cambia los nombres, fotos y detalles por los que tú quieras mostrar.
 private val solicitudes = listOf(
     Persona("Ana Pérez", R.drawable.foto_solicitud_1, "2 amigos en común"),
-    Persona("Luis Rojas", R.drawable.foto_solicitud_2, "3 amigos en común")
+    Persona("Luis Rojas", R.drawable.foto_solicitud_2, "3 amigos en común"),
+    Persona("Hernesto de la Cruz", R.drawable.foto_solucitud_3,"67 amigos en común")
 )
 
 // Estas son las dos personas sugeridas.
