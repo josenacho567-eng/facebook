@@ -1,5 +1,6 @@
 package com.example.facebook.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -33,9 +34,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.facebook.R
 import com.example.facebook.ui.theme.FacebookPlaceholder
 import com.example.facebook.ui.theme.FacebookSurface
 import com.example.facebook.ui.theme.FacebookTextSecondary
@@ -44,11 +48,15 @@ import com.example.facebook.ui.theme.FacebookTheme
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
     var searchQuery by remember { mutableStateOf("") }
+    val image = painterResource(R.drawable.marcottt)
+
 
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
+            .background(
+                MaterialTheme.colorScheme.background
+            ),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         // 1. Buscador y barra de estado superior
@@ -79,9 +87,24 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                         modifier = Modifier
                             .size(40.dp)
                             .clip(CircleShape)
-                            .background(FacebookPlaceholder)
-                    )
+
+                    ){
+                        Image(
+                            painter = image,
+                            contentDescription = "Foto de perfil",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
                     Spacer(modifier = Modifier.width(10.dp))
+                    /*OutlinedTextField(
+                        value = searchQuery,
+                        onValueChange = { searchQuery = it },
+                        placeholder = { Text("¿Qué estás pensando?") },
+                        singleLine = true,
+                        shape = RoundedCornerShape(24.dp),
+                        modifier = Modifier.fillMaxWidth().border(1.dp, FacebookPlaceholder, RoundedCornerShape(20.dp))
+                    )*/
                     Box(
                         modifier = Modifier
                             .weight(1f)
@@ -106,7 +129,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(FacebookSurface)
-                    .padding(vertical = 12.dp)
+                    .padding(vertical = 16.dp)
             ) {
                 Text(
                     text = "Historias",
@@ -123,7 +146,10 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                         StoryCardPlaceholder(label = "Crear historia", isCreate = true)
                     }
                     items(5) { index ->
-                        StoryCardPlaceholder(label = "Historia ${index + 1}")
+                        StoryCardPlaceholder(
+                            label = "Historia ${index + 1}",
+                            index = index + 1
+                        )
                     }
                 }
             }
@@ -139,8 +165,30 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 @Composable
 private fun StoryCardPlaceholder(
     label: String,
+    index: Int = 0,
     isCreate: Boolean = false
 ) {
+    val imageResAvatar = when (index){
+        1 -> R.drawable.foto_amigo_1
+        // Descomenta o agrega tus imágenes a medida que las añadas en res/drawable:
+         2 -> R.drawable.foto_amigo_2
+         3 -> R.drawable.foto_amigo_3
+         4 -> R.drawable.foto_sugerencia_1
+         5 -> R.drawable.foto_sugerencia_2
+        else -> null
+
+    }
+    val imageRes = when (index) {
+
+        1 -> R.drawable.historia1
+        // Descomenta o agrega tus imágenes a medida que las añadas en res/drawable:
+         2 -> R.drawable.historia2
+         3 -> R.drawable.historia3
+         4 -> R.drawable.historia4
+         5 -> R.drawable.historia5
+        else -> null
+    }
+
     Card(
         modifier = Modifier
             .width(105.dp)
@@ -149,41 +197,84 @@ private fun StoryCardPlaceholder(
         colors = CardDefaults.cardColors(containerColor = FacebookPlaceholder)
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp)
+            modifier = Modifier.fillMaxSize()
         ) {
-            // Avatar o ícono superior
+            if (imageRes != null) {
+                Image(
+                    painter = painterResource(id = imageRes),
+                    contentDescription = label,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+
             Box(
                 modifier = Modifier
-                    .size(32.dp)
-                    .clip(CircleShape)
-                    .background(
-                        if (isCreate) MaterialTheme.colorScheme.primary else FacebookSurface
-                    ),
-                contentAlignment = Alignment.Center
+                    .fillMaxSize()
+                    .padding(8.dp)
             ) {
-                if (isCreate) {
+                // Avatar o ícono superior
+                Box(
+                    modifier = Modifier
+                        .size(32.dp)
+                        .clip(CircleShape)
+                        .background(
+                            if (isCreate) MaterialTheme.colorScheme.primary else FacebookSurface
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    if (isCreate) {
+                        Text(
+                            text = "+",
+                            color = FacebookSurface,
+                            fontWeight = FontWeight.Bold
+                        )
+                    } else if (imageResAvatar != null) {
+                        Image (
+                            painter = painterResource(id = imageResAvatar),
+                            contentDescription = label,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
+                }
+
+                if (imageRes == null){
                     Text(
-                        text = "+",
-                        color = FacebookSurface,
-                        fontWeight = FontWeight.Bold
+                    text = label,
+                    style = MaterialTheme.typography.labelMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.align(Alignment.BottomStart)
                     )
                 }
             }
-
-            Text(
-                text = label,
-                style = MaterialTheme.typography.labelMedium,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.align(Alignment.BottomStart)
-            )
         }
     }
 }
 
 @Composable
 private fun PostItemPlaceholder(postNumber: Int) {
+
+    val imageResAvatarPublicacion = when (postNumber){
+        1 -> R.drawable.foto_amigo_1
+        // Descomenta o agrega tus imágenes a medida que las añadas en res/drawable:
+        2 -> R.drawable.foto_amigo_2
+        3 -> R.drawable.foto_amigo_3
+        else -> null
+
+    }
+
+    val imageResPublicacion = when (postNumber){
+        1 -> R.drawable.publicacion1
+        // Descomenta o agrega tus imágenes a medida que las añadas en res/drawable:
+        2 -> R.drawable.publicacion2
+        3 -> R.drawable.publicacion3
+        else -> null
+
+    }
+
+
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(0.dp),
@@ -197,7 +288,14 @@ private fun PostItemPlaceholder(postNumber: Int) {
                         .size(40.dp)
                         .clip(CircleShape)
                         .background(FacebookPlaceholder)
-                )
+                ) {
+                    Image(
+                        painter = painterResource(id = imageResAvatarPublicacion!!),
+                        contentDescription = "Foto de perfil",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxSize()
+                    )
+                }
                 Spacer(modifier = Modifier.width(10.dp))
                 Column {
                     Text(
@@ -231,11 +329,14 @@ private fun PostItemPlaceholder(postNumber: Int) {
                     .background(FacebookPlaceholder),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = "Contenido / Imagen de publicación $postNumber",
-                    color = FacebookTextSecondary,
-                    style = MaterialTheme.typography.bodySmall
-                )
+                if (imageResPublicacion!=null) {
+                    Image(
+                        painter = painterResource(id = imageResPublicacion),
+                        contentDescription = "Imagen de ejemplo",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxSize()
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(8.dp))

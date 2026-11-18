@@ -52,19 +52,21 @@ private data class Persona(
 
 // Estas son las dos solicitudes de amistad.
 // Cambia los nombres, fotos y detalles por los que tú quieras mostrar.
-private val solicitudes = listOf(
+// Se usa 'get()' para evitar acceder a R.drawable durante la inicialización estática de la clase (<clinit>),
+// lo que previene errores de NoClassDefFoundError / ExceptionInInitializerError en Android Studio Preview.
+private val solicitudes get() = listOf(
     Persona("Ana Pérez", R.drawable.foto_solicitud_1, "2 amigos en común"),
     Persona("Luis Rojas", R.drawable.foto_solicitud_2, "3 amigos en común")
 )
 
 // Estas son las dos personas sugeridas.
-private val sugerencias = listOf(
+private val sugerencias get() = listOf(
     Persona("María López", R.drawable.foto_sugerencia_1, "Sugerencia de amistad"),
     Persona("Carlos Díaz", R.drawable.foto_sugerencia_2, "Sugerencia de amistad")
 )
 
 // Estos son los tres amigos que aparecen al final de la pantalla.
-private val amigos = listOf(
+private val amigos get() = listOf(
     Persona("Sofía Vargas", R.drawable.foto_amigo_1, "Amigo desde 2024"),
     Persona("Diego Flores", R.drawable.foto_amigo_2, "Amigo desde 2024"),
     Persona("Valeria Cruz", R.drawable.foto_amigo_3, "Amigo desde 2024")

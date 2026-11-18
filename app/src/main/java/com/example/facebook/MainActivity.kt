@@ -28,6 +28,7 @@ import com.example.facebook.ui.screens.FriendsScreen
 import com.example.facebook.ui.screens.HomeScreen
 import com.example.facebook.ui.screens.MarketplaceScreen
 import com.example.facebook.ui.screens.ProfileScreen
+import com.example.facebook.ui.theme.FacebookP
 import com.example.facebook.ui.theme.FacebookPlaceholder
 import com.example.facebook.ui.theme.FacebookSurface
 import com.example.facebook.ui.theme.FacebookTextSecondary
@@ -66,7 +67,7 @@ fun FacebookApp() {
                     .background(FacebookSurface)
             ) {
                 Text(
-                    text = "facebook",
+                    text = "Facebook",
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.ExtraBold,
                     color = MaterialTheme.colorScheme.primary,
@@ -97,6 +98,7 @@ fun FacebookApp() {
                                     },
                                     color = if (selectedTabIndex == index) {
                                         MaterialTheme.colorScheme.primary
+
                                     } else {
                                         FacebookTextSecondary
                                     }
