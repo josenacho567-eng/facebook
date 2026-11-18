@@ -129,9 +129,9 @@ fun MarketplaceScreen(
         modifier = modifier
             .fillMaxSize()
             .background(FacebookSurface),
-        contentPadding = PaddingValues(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        contentPadding = PaddingValues(16.dp), //Bordes
+        horizontalArrangement = Arrangement.spacedBy(12.dp), //espacio columnas
+        verticalArrangement = Arrangement.spacedBy(12.dp) //Espacio filas
     ) {
         // Encabezado y Buscador
         item(span = { GridItemSpan(maxLineSpan) }) {
@@ -142,8 +142,9 @@ fun MarketplaceScreen(
                     fontWeight = FontWeight.Bold
                 )
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(12.dp))//Altura del titulo
 
+                //Barra buscador
                 OutlinedTextField(
                     value = searchQuery,
                     onValueChange = { searchQuery = it },
@@ -153,27 +154,28 @@ fun MarketplaceScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(12.dp)) //Altura barra
 
+                //Botones vender y categorias
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     OutlinedButton(
                         onClick = { },
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f)//size vender
                     ) {
                         Text("Vender")
                     }
                     OutlinedButton(
                         onClick = { },
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f) //size categorias
                     ) {
                         Text("Categorías")
                     }
                 }
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(8.dp))//Altura botones
 
                 Text(
                     text = "Selección de hoy",
@@ -200,16 +202,16 @@ private fun MarketplaceItemCard(
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(8.dp), //Que tan redondeado estan las cards
         colors = CardDefaults.cardColors(containerColor = FacebookSurface),
-        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 5.dp) //"elevacion de las cards"
     ) {
         Column {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(140.dp)
-                    .clip(RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp))
+                    .height(140.dp)//Tamano de las fotos
+                    .clip(RoundedCornerShape(topStart = 2.dp, topEnd = 2.dp)) // redondeo de las fotos
                     .background(FacebookPlaceholder),
                 contentAlignment = Alignment.Center
             ) {
