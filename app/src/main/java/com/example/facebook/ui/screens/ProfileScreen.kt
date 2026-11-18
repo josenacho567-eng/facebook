@@ -127,13 +127,17 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                 ) {
                     Button(
                         onClick = { },
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                        colors = ButtonDefaults.buttonColors(FacebookBlue)
+
                     ) {
                         Text("+ Agregar a historia")
                     }
                     OutlinedButton(
                         onClick = { },
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                    //    colors = ButtonDefaults.buttonColors(FacebookBlue)
+
                     ) {
                         Text("Editar perfil")
                     }
