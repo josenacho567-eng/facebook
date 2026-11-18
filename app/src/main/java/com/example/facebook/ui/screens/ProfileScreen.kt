@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -33,6 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.facebook.R
+import com.example.facebook.ui.theme.FacebookBlue
 import com.example.facebook.ui.theme.FacebookPlaceholder
 import com.example.facebook.ui.theme.FacebookSurface
 import com.example.facebook.ui.theme.FacebookTextSecondary
@@ -122,13 +124,17 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                 ) {
                     Button(
                         onClick = { },
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                        colors = ButtonDefaults.buttonColors(FacebookBlue)
+
                     ) {
                         Text("+ Agregar a historia")
                     }
                     OutlinedButton(
                         onClick = { },
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                    //    colors = ButtonDefaults.buttonColors(FacebookBlue)
+
                     ) {
                         Text("Editar perfil")
                     }
