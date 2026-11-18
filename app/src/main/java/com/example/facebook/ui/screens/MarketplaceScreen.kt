@@ -102,6 +102,34 @@ val sampleMarketplaceProducts = listOf(
         price = "300Bs",
         location = "Santa Cruz, Bolivia",
         imageRes = R.drawable.product6
+    ),
+    MarketplaceProduct(
+        id = 7,
+        title = "Bicicleta",
+        price = "80Bs",
+        location = "El Alto, Bolivia",
+        imageRes = R.drawable.product7
+    ),
+    MarketplaceProduct(
+        id = 8,
+        title = "Poly Station 5",
+        price = "1070Bs",
+        location = "La Paz, Bolivia",
+        imageRes = R.drawable.product8
+    ),
+    MarketplaceProduct(
+        id = 9,
+        title = "Laptop en buen estado",
+        price = "700Bs",
+        location = "La Paz, Bolivia",
+        imageRes = R.drawable.product9
+    ),
+    MarketplaceProduct(
+        id = 10,
+        title = "Algebra de Baldor casi nuevo",
+        price = "40Bs",
+        location = "El Alto, Bolivia",
+        imageRes = R.drawable.product10
     )
 )
 
